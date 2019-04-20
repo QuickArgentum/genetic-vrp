@@ -1,0 +1,37 @@
+{
+  "name": "electron-quick-start-typescript",
+  "version": "1.0.0",
+  "description": "A minimal Electron application written with Typescript",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "repository": "https://github.com/electron/electron-quick-start-typescript",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo",
+    "typescript"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^2.0.18",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "@types/animejs": "^2.0.2",
+    "@types/chart.js": "^2.7.51",
+    "@types/jquery": "^3.3.29",
+    "animejs": "^3.0.1",
+    "bootstrap": "^4.3.1",
+    "chartjs": "^0.3.24",
+    "jquery": "^3.4.0",
+    "popper.js": "^1.15.0"
+  }
+}
