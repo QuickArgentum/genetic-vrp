@@ -7,10 +7,13 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
+    minHeight: 300,
+    minWidth: 400,
+    frame: false,
   });
 
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   mainWindow.on("closed", () => {
     mainWindow = null;
   });

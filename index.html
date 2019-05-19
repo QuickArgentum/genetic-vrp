@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
     <title>Genetic VRP</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand navbar-dark bg-primary">
+    <nav class="navbar navbar-expand navbar-dark bg-primary toolbar">
       <a class="navbar-brand" href="#">Genetic VRP</a>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
@@ -23,8 +24,19 @@
             <a class="nav-link" href="#">Report</a>
           </li>
         </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">_</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">x</a>
+          </li>
+        </ul>
       </div>
     </nav>
+    
+    <button type="button" class="btn btn-primary" id="btn-load">Load File</button>
+    <canvas id="chart-problem" width="400" height="400"></canvas>
   </body>
 
   <script>
