@@ -7,11 +7,15 @@ export class Vector2 {
         this._y = y;
     }
 
-    public getX(): number {
+    public get x(): number {
         return this._x;
     }
 
-    public getY(): number {
+    public get y(): number {
         return this._y;
+    }
+
+    public distanceTo(other: Vector2): number {
+        return Math.sqrt( Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2) );
     }
 }

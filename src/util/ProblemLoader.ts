@@ -27,7 +27,6 @@ export class ProblemLoader {
 
         lines.forEach(x => {
             let line = x.replace(/\s\s+/g, " ").trim();
-            console.log(line);
             let elems: string[] = line.split(" ");
             let node: Node = new Node();
 

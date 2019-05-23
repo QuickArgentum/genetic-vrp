@@ -7,6 +7,14 @@ export class Mutation {
         private maxSwathLen: number
     ) { }
 
+    public applyRandom(parent: number[]): number[] {
+        switch(RandomUtils.rangeInt(0, 2)) {
+            case 0: return this.inversion(parent);
+            case 1: return this.singleSwap(parent);
+            case 2: return this.scramble(parent);
+        }
+    }
+
     public inversion(parent: number[]): number[] {
         let result: number[] = [...parent];
         let len: number = RandomUtils.rangeInt(this.minSwathLen * parent.length, this.maxSwathLen * parent.length);

@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
     <title>Genetic VRP</title>
   </head>
   <body>
@@ -36,11 +36,12 @@
     </nav>
     
     <button type="button" class="btn btn-primary" id="btn-load">Load File</button>
+    <button type="button" class="btn btn-primary" id="btn-go">Go</button>
     <canvas id="chart-problem" width="400" height="400"></canvas>
   </body>
 
   <script>
-    require('./dist/renderer.js');
+    require('../dist/renderer.js');
     let $ = require('jquery');
     require('popper.js');
     require('bootstrap');

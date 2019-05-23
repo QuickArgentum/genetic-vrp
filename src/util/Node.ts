@@ -7,4 +7,8 @@ export class Node {
     public timeWindowStart: number;
     public timeWindowEnd: number;
     public serviceTime: number;
+
+    public distanceTo(other: Node): number {
+        return this.position.distanceTo(other.position);
+    }
 }

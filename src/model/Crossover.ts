@@ -7,9 +7,17 @@ export class Crossover {
         private maxSwathLen: number
     ) { }
 
+    public applyRandom(parent1: number[], parent2: number[]): number[] {
+        switch(RandomUtils.rangeInt(0, 2)) {
+            case 0: return this.orderOne(parent1, parent2);
+            case 1: return this.pmx(parent1, parent2);
+            case 2: return this.edgeRecombination(parent1, parent2);
+        }
+    }
+
     public orderOne(parent1: number[], parent2: number[]): number[] {
         let result: number[] = [];
-        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent1.length, this.maxSwathLen * parent1.length);
+        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent.length, this.maxSwathLen * parent.length);
         let pos: number = RandomUtils.rangeInt(0, parent1.length - len);
 
         for (let i = pos; i < pos + len; i++) {
@@ -66,17 +74,19 @@ export class Crossover {
             neighbours.forEach(list => {
                 ArrayUtils.remove(list, newNode);
             });
+            console.log(newNode);
             if (neighbours[newNode].length == 0) {
                 newNode = ArrayUtils.getRandom(values);
             } else {
                 let min = 999;
                 let minIndices: number[] = [];
                 for (let i = 0; i < neighbours[newNode].length; i++) {
-                    if (neighbours[neighbours[newNode][i]].length = min) {
+                    if (neighbours[neighbours[newNode][i]].length == min) {
                         minIndices.push(neighbours[newNode][i]);
                     } else if (neighbours[neighbours[newNode][i]].length < min) {
                         minIndices.length = 0;
                         minIndices.push(neighbours[newNode][i]);
+                        min = neighbours[neighbours[newNode][i]].length;
                     }
                 }
                 newNode = ArrayUtils.getRandom(minIndices);
@@ -89,7 +99,7 @@ export class Crossover {
 
     public pmx(parent1: number[], parent2: number[]): number[] {
         let result: number[] = [];
-        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent1.length, this.maxSwathLen * parent1.length);
+        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent.length, this.maxSwathLen * parent.length);
         let pos: number = RandomUtils.rangeInt(0, parent1.length - len);
 
         for (let i = pos; i < pos + len; i++) {
@@ -97,7 +107,7 @@ export class Crossover {
         }
 
         for (let i = pos; i < pos + len; i++) {
-            if (result.indexOf(parent2[i]) > -1) {
+            if (result.indexOf(parent2[i]) < 0) {
                 let j = i;
                 while(result.indexOf(parent1[j]) > -1) {
                     j = parent2.indexOf(parent1[j]);

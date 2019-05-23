@@ -10,9 +10,13 @@ export class RandomUtils {
         let result: Solution = new Solution();
 
         for (let i = 0; i < len; i++) {
-            result.route.push();
+            result.route.push(i);
         }
         ArrayUtils.shuffle(result.route);
         return result;
+    }
+
+    public static chance(prob: number): boolean {
+        return Math.random() < prob;
     }
 }
