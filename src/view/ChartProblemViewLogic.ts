@@ -5,6 +5,11 @@ export class ChartProblemViewLogic extends ViewLogic {
     private _chart: Chart;
     private _data: Chart.ChartPoint[];
 
+    constructor(viewData: HTMLElement) {
+        super(viewData);
+        this.updateView();
+    }
+
     public setData(data: Chart.ChartPoint[]) {
         this._data = data;
         this.updateView();
@@ -15,11 +20,15 @@ export class ChartProblemViewLogic extends ViewLogic {
             type: "scatter",
             data: {
                 datasets: [{
-                    data: this._data
+                    data: this._data,
+                    backgroundColor: "pink"
                 }]
             },
             options: {
-                legend: { display: false }
+                legend: { display: false },
+                layout: {
+                    padding: 50
+                }
             }
         });
     }

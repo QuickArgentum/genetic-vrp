@@ -1,0 +1,9 @@
+.chart-container {
+    position: relative;
+}
+
+#solution-container {
+    display: grid;
+    grid-gap: 40px;
+    overflow: scroll;
+}

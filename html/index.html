@@ -15,33 +15,57 @@
             <a class="nav-link" href="#" id="nav-problem">Problem</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
+            <a class="nav-link" href="#" id="nav-settings">Settings</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Progress</a>
+            <a class="nav-link" href="#" id="nav-progress">Progress</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Report</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">_</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">x</a>
+            <a class="nav-link" href="#" id="nav-report">Report</a>
           </li>
         </ul>
       </div>
     </nav>
+
+    <div id="page-0">
+      <div class="row">
+        <div class="col-8">
+          <div class="chart-container">
+            <canvas id="chart-problem" width="400" height="400"></canvas>
+          </div>
+        </div>
+        <div class="col-4">
+          <br>
+          <button type="button" class="btn btn-primary" id="btn-load">Load File</button>
+          <button type="button" class="btn btn-primary" id="btn-go">Go</button>
+        </div>
+      </div>
+    </div>
+    <div id="page-1">
+      <h3>Settings</h3>
+    </div>
+    <div id="page-2">
+      <div class="row">
+        <div class="col">
+          <div class="chart-container">
+            <canvas id="chart-penalty" width="400" height="400"></canvas>
+          </div>
+        </div>
+        <div class="col">
+          <div id="solution-container">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="page-3">
+      <h3>Report</h3>
+    </div>
     
-    <button type="button" class="btn btn-primary" id="btn-load">Load File</button>
-    <button type="button" class="btn btn-primary" id="btn-go">Go</button>
-    <canvas id="chart-problem" width="400" height="400"></canvas>
   </body>
 
   <script>
-    require('../dist/renderer.js');
+    require('../dist/Renderer.js');
     let $ = require('jquery');
     require('popper.js');
     require('bootstrap');

@@ -8,7 +8,7 @@ export class Crossover {
     ) { }
 
     public applyRandom(parent1: number[], parent2: number[]): number[] {
-        switch(RandomUtils.rangeInt(0, 2)) {
+        switch(RandomUtils.rangeInt(0, 1)) {
             case 0: return this.orderOne(parent1, parent2);
             case 1: return this.pmx(parent1, parent2);
             case 2: return this.edgeRecombination(parent1, parent2);

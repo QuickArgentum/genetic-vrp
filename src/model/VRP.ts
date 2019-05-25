@@ -53,7 +53,7 @@ export class VRP {
 
     private generationCalcFitness() {
         this.generation.forEach(sol => {
-            sol.fitness = 1 / sol.evaluate(this.problem);
+            sol.calculateFitness(this.problem);
         });
 
         this.generation.forEach(sol => {
@@ -75,8 +75,8 @@ export class VRP {
             }
 
             let child: Solution = new Solution(childRoute);
-            let childFitness = 1 / child.evaluate(this.problem);
-            if (childFitness < parent1.fitness && childFitness < parent2.fitness) {
+            child.calculateFitness(this.problem);
+            if (child.fitness < parent1.fitness && child.fitness < parent2.fitness) {
                 if (!RandomUtils.chance(this.settings.crossoverKeepBadChildChance)) {
                     child = ArrayUtils.getRandom([parent1, parent2]);
                 }

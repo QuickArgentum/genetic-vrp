@@ -23,23 +23,37 @@ export class ProblemLoader {
     private readProblem(data: string): Problem {
         let result: Problem = new Problem;
 
-        let lines: string[] = data.split("\n").filter(line => line[0] != "#");
+        let lines: string[] = data.split("\n");
 
         lines.forEach(x => {
             let line = x.replace(/\s\s+/g, " ").trim();
             let elems: string[] = line.split(" ");
-            let node: Node = new Node();
 
-            node.position = new Vector2(+elems[1], +elems[2]);
-            node.demand = +elems[3];
-            node.timeWindowStart = +elems[4];
-            node.timeWindowEnd = +elems[5];
-            node.serviceTime = +elems[6];
+            switch(elems[0]) {
+                case "v":
+                    result.vehicles = +elems[1];
+                    break;
+                case "c":
+                    result.capacity = +elems[1];
+                    break;
+                case "#":
+                    break;
+                
+                default:
+                    let node: Node = new Node();
 
-            if (+elems[0] == 0) {
-                result.depot = node;
-            } else {
-                result.nodes.push(node);
+                    node.position = new Vector2(+elems[1], +elems[2]);
+                    node.demand = +elems[3];
+                    node.timeWindowStart = +elems[4];
+                    node.timeWindowEnd = +elems[5];
+                    node.serviceTime = +elems[6];
+        
+                    if (+elems[0] == 1) {
+                        result.depot = node;
+                    } else {
+                        result.nodes.push(node);
+                    }
+                    break;
             }
         });
 
