@@ -25,3 +25,7 @@ body {
 .settings-card {
     margin: 32px;
 }
+
+.icon {
+    fill: white;
+}

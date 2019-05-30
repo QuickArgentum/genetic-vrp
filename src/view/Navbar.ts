@@ -2,12 +2,19 @@ import * as $ from 'jquery';
 import { HTML } from '../const/HTML';
 
 export class Navbar {
+    private readonly FADE_TIME: number = 250;
+    private readonly PAGE_NAVS: string[] = [
+        HTML.NAV_PROBLEM,
+        HTML.NAV_SETTINGS,
+        HTML.NAV_PROGRESS,
+        HTML.NAV_REPORT
+    ]
+
     private activePage: number;
     private blocked: boolean = false;
 
     constructor() {
         this.registerListeners();
-
         this.initPages();
     }
 
@@ -18,49 +25,34 @@ export class Navbar {
         $("#page-3").hide(0);
 
         this.activePage = 0;
-        this.openPage(0, HTML.NAV_PROBLEM);
+        this.openPage(0);
     }
 
     private registerListeners() {
-        $(HTML.NAV_PROBLEM).click(() => {
-            this.removeNavActive();
-            if (!this.blocked)
-                this.openPage(0, HTML.NAV_PROBLEM);
-        });
-        $(HTML.NAV_SETTINGS).click(() => {
-            this.removeNavActive();
-            if (!this.blocked)
-                this.openPage(1, HTML.NAV_SETTINGS);
-        });
-        $(HTML.NAV_PROGRESS).click(() => {
-            this.removeNavActive();
-            if (!this.blocked)
-                this.openPage(2, HTML.NAV_PROGRESS);
-        });
-        $(HTML.NAV_REPORT).click(() => {
-            if (!this.blocked)
-                this.openPage(3, HTML.NAV_REPORT);
-        });
+        for (let i = 0; i < this.PAGE_NAVS.length; i++) {
+            $(this.PAGE_NAVS[i]).click(() => {
+                this.removeNavActive();
+                if (!this.blocked)
+                    this.openPage(i);
+            });
+        }
     }
 
     private removeNavActive() {
-        $(HTML.NAV_PROBLEM).removeClass("active");
-        $(HTML.NAV_SETTINGS).removeClass("active");
-        $(HTML.NAV_PROGRESS).removeClass("active");
-        $(HTML.NAV_REPORT).removeClass("active");
+        for (let i = 0; i < this.PAGE_NAVS.length; i++) {
+            $(this.PAGE_NAVS[i]).removeClass("active");
+        }
     }
 
-    private openPage(id: number, nav: string) {
+    private openPage(id: number) {
         this.block();
         this.removeNavActive();
-        $(nav).addClass("active");
+        $(this.PAGE_NAVS[id]).addClass("active");
 
-        $(`#page-${this.activePage}`).fadeOut(500, () => {
+        $(`#page-${this.activePage}`).fadeOut(this.FADE_TIME, () => {
             $(`#page-${this.activePage}`).hide(0, () => {
-                $(`#page-${id}`).show(0, () => {
-                    $(`#page-${id}`).fadeIn(500, () => {
-                        this.unblock();
-                    });
+                $(`#page-${id}`).fadeIn(this.FADE_TIME, () => {
+                    this.unblock();
                 });
             });
         });
