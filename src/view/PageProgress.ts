@@ -4,7 +4,7 @@ import { GenerationResult } from '../model/GenerationResult';
 
 export class PageProgress {
     public addSolution(generation: GenerationResult) {
-        $(HTML.CONT_SOLUTION).append(this.createSolutionCard(generation));
+        $(HTML.DIV_SOLUTION).append(this.createSolutionCard(generation));
     }
 
     private createSolutionCard(generation: GenerationResult): string {

@@ -11,7 +11,7 @@
       <a class="navbar-brand" href="#">Genetic VRP</a>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#" id="nav-problem">Problem</a>
           </li>
           <li class="nav-item">
@@ -27,7 +27,8 @@
       </div>
     </nav>
 
-    <div id="page-0">
+    <!-- Problem page -->
+    <div id="page-0" class="page">
       <div class="row">
         <div class="col-8">
           <div class="chart-container">
@@ -41,10 +42,71 @@
         </div>
       </div>
     </div>
-    <div id="page-1">
-      <h3>Settings</h3>
+
+    <!-- Settings page -->
+    <div id="page-1" class="page">
+      <div class="row">
+        <!-- Left -->
+        <div class="col">
+          <div class="card settings-card">
+            <h5 class="card-header">General Settings:</h5>
+            <div class="card-body">
+              <label for="basic-url">Generations:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-generations">
+              </div>
+              <label for="basic-url">Solutions per Generation:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-solutions">
+              </div>
+              <label for="basic-url">Persistence Ratio:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-persistence" aria-describedby="add-persistence">
+                <div class="input-group-append"><span class="input-group-text" id="add-persistence">%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right -->
+        <div class="col">
+          <div class="card settings-card">
+            <h5 class="card-header">Crossover Settings</h5>
+            <div class="card-body">
+              <label for="basic-url">Keep 'bad' child chance:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-crossover-chance" aria-describedby="add-crossover-chance">
+                <div class="input-group-append"><span class="input-group-text" id="add-crossover-chance">%</span></div>
+              </div>
+              <label for="basic-url">Swath size:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-crossover-min" aria-describedby="add-crossover-size">
+                <input type="text" class="form-control" id="inp-crossover-max" aria-describedby="add-crossover-size">
+                <div class="input-group-append"><span class="input-group-text" id="add-crossover-size">%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="card settings-card">
+            <h5 class="card-header">Mutation Settings</h5>
+            <div class="card-body">
+              <label for="basic-url">Mutation Chance:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-mutation-chance" aria-describedby="add-mutation-chance">
+                <div class="input-group-append"><span class="input-group-text" id="add-mutation-chance">%</span></div>
+              </div>
+              <label for="basic-url">Swath size:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inp-mutation-min" aria-describedby="add-mutation-size">
+                <input type="text" class="form-control" id="inp-mutation-max" aria-describedby="add-mutation-size">
+                <div class="input-group-append"><span class="input-group-text" id="add-mutation-size">%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="page-2">
+
+    <!-- Progress page -->
+    <div id="page-2" class="page">
       <div class="row">
         <div class="col">
           <div class="chart-container">
@@ -58,8 +120,19 @@
         </div>
       </div>
     </div>
-    <div id="page-3">
-      <h3>Report</h3>
+
+    <!-- Report page -->
+    <div id="page-3" class="page">
+        <div class="row">
+            <div class="col-8">
+              <div class="chart-container">
+                <canvas id="chart-report" width="400" height="400"></canvas>
+              </div>
+            </div>
+            <div class="col-4">
+
+            </div>
+          </div>
     </div>
     
   </body>

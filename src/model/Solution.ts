@@ -47,7 +47,7 @@ export class Solution {
             }
         }
 
-        for (let i = 0; i < markers.length - 1; i++) {
+        for (let i = markers.length - 2; i >= 0; i--) {
             for (let j = 1; markers[i] - j > markers[i - 1]; j++) {
                 let newMarkers = [...markers];
                 newMarkers[i] -= j;
