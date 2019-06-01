@@ -44,7 +44,7 @@ export class Navbar {
         }
     }
 
-    private openPage(id: number) {
+    public openPage(id: number) {
         this.block();
         this.removeNavActive();
         $(this.PAGE_NAVS[id]).addClass("active");

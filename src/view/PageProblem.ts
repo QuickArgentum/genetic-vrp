@@ -5,12 +5,11 @@ import { Storage } from "../model/Storage";
 import { Problem } from "../model/Problem";
 const { dialog } = require('electron').remote;
 import * as $ from 'jquery';
-import { VRP } from "../model/VRP";
-import { Settings } from "../model/Settings";
-import { GenerationResult } from "../model/GenerationResult";
 
 export class PageProblem {
     private chartVL: ChartProblemViewLogic;
+
+    private _nextCallback: Function;
 
     constructor() {
         this.chartVL = new ChartProblemViewLogic($(HTML.CHART_PROBLEM).get()[0]);
@@ -24,22 +23,8 @@ export class PageProblem {
                 this.loadProblem(file[0]);
             });
         });
-        $(HTML.BTN_GO).click(() => {
-            let settings = new Settings();
-            settings.generations = 200;
-            settings.solutions = 100;
-            settings.mutationChance = 0.05;
-            settings.mutationMinLength = 0.01;
-            settings.mutationMaxLength = 0.33;
-            settings.crossoverKeepBadChildChance = 0.15;
-            settings.crossoverMinLength = 0.01;
-            settings.crossoverMaxLength = 0.33;
-            settings.persistenceRatio = 0.4;
-            
-            let vrp = new VRP(Storage.problem, settings, (gen: GenerationResult) => {
-                console.log(gen);
-            });
-            vrp.run();
+        $(HTML.BTN_PROBLEM_NEXT).click(() => {
+            if (this._nextCallback) this._nextCallback();
         });
     }
 
@@ -53,5 +38,9 @@ export class PageProblem {
                 }
             }));
         });
+    }
+
+    public setNextCallback(value: Function) {
+        this._nextCallback = value;
     }
 }

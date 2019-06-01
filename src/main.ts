@@ -26,10 +26,10 @@ export class Main {
 
     private createWindow() {
         this.mainWindow = new BrowserWindow({
-            height: 600,
-            width: 800,
-            minHeight: 300,
-            minWidth: 400,
+            height: 720,
+            width: 1280,
+            minHeight: 400,
+            minWidth: 500,
         });
       
         this.mainWindow.loadFile(path.join(__dirname, "../html/index.html"));

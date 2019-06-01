@@ -38,8 +38,8 @@
         </div>
         <div class="col-4">
           <br>
-          <button type="button" class="btn btn-primary" id="btn-load"><span class="oi oi-file icon" title="file" aria-hidden="true"></span> Load File</button>
-          <button type="button" class="btn btn-primary" id="btn-go">Go</button>
+          <button type="button" class="btn btn-primary" id="btn-load"><span class="oi oi-file icon"></span> Load File</button>
+          <button type="button" class="btn btn-primary" id="btn-problem-next"><span class="oi oi-chevron-right icon"></span> Next</button>
         </div>
       </div>
     </div>
@@ -64,6 +64,19 @@
               <div class="input-group mb-3">
                 <input type="number" class="form-control" id="inp-persistence" aria-describedby="add-persistence">
                 <div class="input-group-append"><span class="input-group-text" id="add-persistence">%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="card settings-card">
+            <h5 class="card-header">Penalty Settings:</h5>
+            <div class="card-body">
+              <label for="basic-url">Distance Multiplier:</label>
+              <div class="input-group mb-3">
+                <input type="number" class="form-control" id="inp-penalty-distance">
+              </div>
+              <label for="basic-url">Overload Multiplier:</label>
+              <div class="input-group mb-3">
+                <input type="number" class="form-control" id="inp-penalty-overload">
               </div>
             </div>
           </div>
@@ -102,6 +115,7 @@
               </div>
             </div>
           </div>
+          <button type="button" class="btn btn-primary" id="btn-settings-next"><span class="oi oi-chevron-right icon"></span> Start</button>
         </div>
       </div>
     </div>
@@ -113,6 +127,7 @@
           <div class="chart-container">
             <canvas id="chart-penalty" width="400" height="400"></canvas>
           </div>
+          <button type="button" class="btn btn-primary" id="btn-progress-next"><span class="oi oi-chevron-right icon"></span> Report</button>
         </div>
         <div class="col">
           <div id="solution-container">

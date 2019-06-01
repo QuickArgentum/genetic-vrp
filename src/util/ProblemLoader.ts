@@ -29,7 +29,7 @@ export class ProblemLoader {
             let line = x.replace(/\s\s+/g, " ").trim();
             let elems: string[] = line.split(" ");
 
-            switch(elems[0]) {
+            switch(elems[0][0]) {
                 case "v":
                     result.vehicles = +elems[1];
                     break;
@@ -62,7 +62,6 @@ export class ProblemLoader {
             console.warn("No depot specified in input file, using the first node");
         }
 
-        console.log(result);
         return result;
     }
 }

@@ -11,4 +11,7 @@ export class Settings {
     public crossoverKeepBadChildChance: number;
     public crossoverMinLength: number;
     public crossoverMaxLength: number;
+
+    public penaltyDistanceMult: number;
+    public penaltyOverloadMult: number;
 }

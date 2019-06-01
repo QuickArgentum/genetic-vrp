@@ -21,11 +21,10 @@ export class VRP {
         private generationCallback: Function
     ) { }
 
-    public run() {
+    public run(): GenerationResult {
         this.initGeneration();
 
         for (let i = 0; i < this.settings.generations; i++) {
-            console.log(`Generation ${i}`);
             this.roulette = new Roulette();
             
             this.generationCalcFitness();
@@ -40,22 +39,42 @@ export class VRP {
 
             this.generation.sort((a, b) => { return a.fitness - b.fitness });
 
-            this.finishGeneration();
+            this.finishGeneration(i);
         }
-    }
 
-    private finishGeneration() {
         let result: GenerationResult = new GenerationResult();
         result.bestSolution = this.generation[this.generation.length - 1];
-        console.log(result);
+        result.id = this.settings.generations - 1;
+        result.distance = result.bestSolution.calculateDistance(this.problem);
+        return result;
+    }
+
+    private finishGeneration(id: number) {
+        let result: GenerationResult = new GenerationResult();
+        result.bestSolution = this.generation[this.generation.length - 1];
+        result.id = id;
+        result.distance = result.bestSolution.calculateDistance(this.problem);
         this.generationCallback(result);
     }
 
     private generationCalcFitness() {
+        // Calculate base penalty
         this.generation.forEach(sol => {
-            sol.calculateFitness(this.problem);
+            sol.calculatePenalty(this.problem, this.settings.penaltyDistanceMult, this.settings.penaltyOverloadMult);
         });
 
+        // Calculate max penalty of generation
+        let maxPenalty: number = this.generation[0].penalty;
+        this.generation.forEach(sol => {
+            if (sol.penalty > maxPenalty) maxPenalty = sol.penalty;
+        });
+
+        // Set relative fitness for each solution
+        this.generation.forEach(sol => {
+            sol.fitness = ( maxPenalty - sol.penalty ) / maxPenalty;
+        });
+
+        // Add solution fitnesses to a roulette
         this.generation.forEach(sol => {
             this.roulette.add(sol.fitness);
         });
@@ -75,8 +94,8 @@ export class VRP {
             }
 
             let child: Solution = new Solution(childRoute);
-            child.calculateFitness(this.problem);
-            if (child.fitness < parent1.fitness && child.fitness < parent2.fitness) {
+            child.calculatePenalty(this.problem, this.settings.penaltyDistanceMult, this.settings.penaltyOverloadMult);
+            if (child.penalty > parent1.penalty && child.penalty > parent2.penalty) {
                 if (!RandomUtils.chance(this.settings.crossoverKeepBadChildChance)) {
                     child = ArrayUtils.getRandom([parent1, parent2]);
                 }

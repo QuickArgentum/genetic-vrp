@@ -14,8 +14,11 @@ body {
 
 #solution-container {
     display: grid;
-    grid-gap: 40px;
+    grid-gap: 25px;
     overflow-y: scroll;
+    height: 100%;
+    grid-template-columns: auto;
+    grid-auto-flow: row;
 }
 
 .page {
@@ -28,4 +31,9 @@ body {
 
 .icon {
     fill: white;
+}
+
+.solution {
+    width: 220px;
+    height: 180px;
 }

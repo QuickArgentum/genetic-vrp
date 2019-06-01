@@ -1,7 +1,9 @@
 import { Problem } from "./Problem";
+import { Penalty } from "./Penalty";
 
 export class Solution {
     public route: number[] = [];
+    public penalty: number;
     public fitness: number;
 
     public vehicleMarkers: number[] = [];
@@ -12,46 +14,41 @@ export class Solution {
         }
     }
 
-    public calculateFitness(problem: Problem) {
+    public calculatePenalty(problem: Problem, distanceMult: number, loadMult: number) {
         this.vehicleMarkers = [];
 
         let load = 0;
+        let overload = 0;
         for (let i = 0; i < this.route.length - 1; i++) {
             if (load + problem.nodes[this.route[i]].demand <= problem.capacity) {
                 load += problem.nodes[this.route[i]].demand;
-            } else {
+            } else if (this.vehicleMarkers.length < problem.vehicles) {
                 this.vehicleMarkers.push(i - 1);
                 load = problem.nodes[this.route[i]].demand;
+            } else {
+                overload += problem.nodes[this.route[i]].demand;
             }
         }
         this.vehicleMarkers.push(this.route.length - 1);
-        if (this.vehicleMarkers.length > problem.vehicles) {
-            this.fitness = 0;
-            console.log("discarding a solution");
-            return;
-        }
-        
-        this.tryReroute(problem);
+        if (overload == 0)
+            this.tryReroute(problem, distanceMult, loadMult);
 
-        this.fitness = 1 / this.evalute(problem, this.vehicleMarkers);
+        let p = this.evaluatePenaltyComponents(problem, this.vehicleMarkers);
+        this.penalty = Solution.penaltyFunc(p, distanceMult, loadMult);
     }
 
-    private tryReroute(problem: Problem) {
+    private tryReroute(problem: Problem, distanceMult: number, loadMult: number) {
         let markers = [...this.vehicleMarkers];
-        let load: number[] = [];
-
-        for (let i = 0; i < markers.length; i++) {
-            load[i] = 0;
-            for (let j = markers[i]; j > (i == 0 ? 0 : markers[i - 1]); j--) {
-                load[i] += problem.nodes[this.route[j]].demand;
-            }
-        }
 
         for (let i = markers.length - 2; i >= 0; i--) {
             for (let j = 1; markers[i] - j > markers[i - 1]; j++) {
                 let newMarkers = [...markers];
                 newMarkers[i] -= j;
-                if (this.evalute(problem, markers) > this.evalute(problem, newMarkers)) {
+
+                let penOld = this.evaluatePenaltyComponents(problem, markers);
+                let penNew = this.evaluatePenaltyComponents(problem, newMarkers);
+
+                if (Solution.penaltyFunc(penOld, distanceMult, loadMult) > Solution.penaltyFunc(penNew, distanceMult, loadMult)) {
                     markers = newMarkers;
                 } else {
                     break;
@@ -62,29 +59,36 @@ export class Solution {
         this.vehicleMarkers = markers;
     }
 
-    private evalute(problem: Problem, markers: number[]) {
-        let result = 0;
-        let load = 0;
+    public calculateDistance(problem: Problem): number {
+        return this.evaluatePenaltyComponents(problem, this.vehicleMarkers).distance;
+    }
+
+    private evaluatePenaltyComponents(problem: Problem, markers: number[]): Penalty {
+        let distance = 0;
         let marker = 0;
+        let load = 0;
+        let overload = 0;
         
-        result += problem.depot.distanceTo(problem.nodes[this.route[0]]);
+        distance += problem.depot.distanceTo(problem.nodes[this.route[0]]);
         for (let i = 0; i < this.route.length - 2; i++) {
             if (i == markers[marker]) {
                 load = problem.nodes[this.route[i]].demand;
                 marker++;
-                result += problem.depot.distanceTo(problem.nodes[this.route[i]]);
-                result += problem.depot.distanceTo(problem.nodes[this.route[i + 1]]);
+                distance += problem.depot.distanceTo(problem.nodes[this.route[i]]);
+                distance += problem.depot.distanceTo(problem.nodes[this.route[i + 1]]);
             } else {
                 load += problem.nodes[this.route[i]].demand;
-                result += problem.nodes[this.route[i]].distanceTo(
+                if (load > problem.capacity)
+                    overload += problem.nodes[this.route[i]].demand;
+                distance += problem.nodes[this.route[i]].distanceTo(
                     problem.nodes[this.route[i + 1]]);
             }
-
-            if (load > problem.capacity) {
-                return Number.MAX_VALUE;
-            }
         }
-        result += problem.depot.distanceTo(problem.nodes[this.route[this.route.length - 1]]);
-        return result;
+        distance += problem.depot.distanceTo(problem.nodes[this.route[this.route.length - 1]]);
+        return new Penalty(distance, overload);
+    }
+
+    private static penaltyFunc(penalty: Penalty, distanceMult: number, loadMult: number) {
+        return distanceMult * penalty.distance + loadMult * penalty.overload;
     }
 }
