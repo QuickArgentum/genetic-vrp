@@ -31,15 +31,17 @@
     <!-- Problem page -->
     <div id="page-0" class="page">
       <div class="row">
-        <div class="col-8">
+        <div class="col-6">
           <div class="chart-container">
             <canvas id="chart-problem" width="400" height="400"></canvas>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <br>
           <button type="button" class="btn btn-primary" id="btn-load"><span class="oi oi-file icon"></span> Load File</button>
           <button type="button" class="btn btn-primary" id="btn-problem-next"><span class="oi oi-chevron-right icon"></span> Next</button>
+          <br>
+          <h5 id="problem-info"></h5>
         </div>
       </div>
     </div>
@@ -124,31 +126,38 @@
     <div id="page-2" class="page">
       <div class="row">
         <div class="col">
-          <div class="chart-container">
-            <canvas id="chart-penalty" width="400" height="400"></canvas>
-          </div>
+          <br>
           <button type="button" class="btn btn-primary" id="btn-progress-next"><span class="oi oi-chevron-right icon"></span> Report</button>
-        </div>
-        <div class="col">
-          <div id="solution-container">
-
-          </div>
+          <br>
+          <table id="table-generation" class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Best Penalty</th>
+                <th>Distance</th>
+              </tr>
+            </thead>
+            <tbody>
+    
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
     <!-- Report page -->
     <div id="page-3" class="page">
-        <div class="row">
-            <div class="col-8">
-              <div class="chart-container">
-                <canvas id="chart-report" width="400" height="400"></canvas>
-              </div>
-            </div>
-            <div class="col-4">
-
+      <div class="row">
+          <div class="col-6">
+            <div class="chart-container">
+              <canvas id="chart-report" width="400" height="400"></canvas>
             </div>
           </div>
+          <div class="col-6">
+          <br>
+          <h5 id="report-info"></h5>
+          </div>
+        </div>
     </div>
     
   </body>

@@ -21,32 +21,34 @@ export class VRP {
         private generationCallback: Function
     ) { }
 
-    public run(): GenerationResult {
-        this.initGeneration();
+    public async run() {
+        return new Promise((resolve) => {
+            this.initGeneration();
 
-        for (let i = 0; i < this.settings.generations; i++) {
-            this.roulette = new Roulette();
-            
-            this.generationCalcFitness();
+            for (let i = 0; i < this.settings.generations; i++) {
+                this.roulette = new Roulette();
+                
+                this.generationCalcFitness();
 
-            let childrenCount: number = Math.floor(this.problem.length * this.settings.persistenceRatio);
-            let children: Solution[] = this.generationCreateChildren(childrenCount);
+                let childrenCount: number = Math.floor(this.problem.length * this.settings.persistenceRatio);
+                let children: Solution[] = this.generationCreateChildren(childrenCount);
 
-            this.generation.sort((a, b) => { return a.fitness - b.fitness });
-            this.generation = this.generation.slice(childrenCount);
+                this.generation.sort((a, b) => { return a.fitness - b.fitness });
+                this.generation = this.generation.slice(childrenCount);
 
-            this.generation.splice(0, 0, ...children);
+                this.generation.splice(0, 0, ...children);
 
-            this.generation.sort((a, b) => { return a.fitness - b.fitness });
+                this.generation.sort((a, b) => { return a.fitness - b.fitness });
 
-            this.finishGeneration(i);
-        }
+                this.finishGeneration(i);
+            }
 
-        let result: GenerationResult = new GenerationResult();
-        result.bestSolution = this.generation[this.generation.length - 1];
-        result.id = this.settings.generations - 1;
-        result.distance = result.bestSolution.calculateDistance(this.problem);
-        return result;
+            let result: GenerationResult = new GenerationResult();
+            result.bestSolution = this.generation[this.generation.length - 1];
+            result.id = this.settings.generations - 1;
+            result.distance = result.bestSolution.calculateDistance(this.problem);
+            resolve(result);
+        });
     }
 
     private finishGeneration(id: number) {

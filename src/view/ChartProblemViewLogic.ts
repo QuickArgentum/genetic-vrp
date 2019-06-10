@@ -3,14 +3,14 @@ import { Chart } from "chart.js";
  
 export class ChartProblemViewLogic extends ViewLogic {
     private _chart: Chart;
-    private _data: Chart.ChartPoint[];
+    private _data: Chart.ChartDataSets[];
 
     constructor(viewData: HTMLElement) {
         super(viewData);
         this.updateView();
     }
 
-    public setData(data: Chart.ChartPoint[]) {
+    public setData(data: Chart.ChartDataSets[]) {
         this._data = data;
         this.updateView();
     }
@@ -19,10 +19,7 @@ export class ChartProblemViewLogic extends ViewLogic {
         this._chart = new Chart(this.viewData as HTMLCanvasElement, {
             type: "scatter",
             data: {
-                datasets: [{
-                    data: this._data,
-                    backgroundColor: "pink"
-                }]
+                datasets: this._data
             },
             options: {
                 legend: { display: false },

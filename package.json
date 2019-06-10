@@ -13,8 +13,7 @@
     "Electron",
     "typescript"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Ortes",
   "devDependencies": {
     "electron": "^2.0.18",
     "tslint": "^5.10.0",

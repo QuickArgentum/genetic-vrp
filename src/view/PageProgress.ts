@@ -7,6 +7,7 @@ import { Storage } from '../model/Storage';
 export class PageProgress {
     private _vrp: VRP;
     private _nextCallback: Function;
+    private _penalties: number[] = [];
 
     constructor() {
         this.registerListeners();
@@ -20,23 +21,13 @@ export class PageProgress {
 
     public start() {
         this._vrp = new VRP(Storage.problem, Storage.settings, this.addSolution.bind(this));
-        Storage.bestSolution = this._vrp.run();
+        this._vrp.run().then((result: GenerationResult) => {
+            Storage.bestSolution = result;
+        });
     }
 
     public addSolution(generation: GenerationResult) {
-        $(HTML.DIV_SOLUTION).append(this.createSolutionCard(generation));
-    }
-
-    private createSolutionCard(generation: GenerationResult): string {
-        let result: string = "";
-        result += '\n<div class="card solution">\n';
-        result += '<div class="card-body">\n';
-        result += `<p class="card-title">Generation: ${generation.id}</p>\n`;
-        result += `<p class="card-text">Penalty: ${generation.bestSolution.penalty}</p>\n`;
-        result += '</div>\n';
-        result += '</div>';
-
-        return result;
+        $('#table-generation tr:last').after(`<tr><td>${generation.id}</td><td>${generation.bestSolution.penalty}</td><td>${generation.distance}</td></tr>`);
     }
 
     public setNextCallback(value: Function) {

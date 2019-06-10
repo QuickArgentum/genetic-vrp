@@ -6,6 +6,7 @@ export class HTML {
 
     public static readonly CHART_PROBLEM = "#chart-problem";
     public static readonly CHART_REPORT = "#chart-report";
+    public static readonly CHART_PENALTY = "#chart-penalty";
 
     public static readonly NAV_PROBLEM = "#nav-problem";
     public static readonly NAV_SETTINGS = "#nav-settings";
@@ -13,6 +14,9 @@ export class HTML {
     public static readonly NAV_REPORT = "#nav-report";
 
     public static readonly DIV_SOLUTION = "#solution-container";
+
+    public static readonly P_PROBLEM = "#problem-info";
+    public static readonly P_REPORT = "#report-info";
 
     public static readonly INP_GENERATIONS = "#inp-generations";
     public static readonly INP_SOLUTIONS = "#inp-solutions";
