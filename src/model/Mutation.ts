@@ -8,7 +8,7 @@ export class Mutation {
     ) { }
 
     public applyRandom(parent: number[]): number[] {
-        switch(RandomUtils.rangeInt(0, 2)) {
+        switch(RandomUtils.rangeInt(0, 1)) {
             case 0: return this.inversion(parent);
             case 1: return this.singleSwap(parent);
             case 2: return this.scramble(parent);
@@ -21,7 +21,11 @@ export class Mutation {
         let pos: number = RandomUtils.rangeInt(0, parent.length - len);
 
         for (let i = 0; i < len; i++) {
-            result[pos + len - i] = parent[pos + i];
+            result[pos + len - i - 1] = parent[pos + i];
+        }
+
+        if (parent.length != result.length) {
+            console.log("inversion sux");
         }
 
         return result;
@@ -37,6 +41,10 @@ export class Mutation {
         result[a] = result[b];
         result[b] = temp;
 
+        if (parent.length != result.length) {
+            console.log("singleSwap sux");
+        }
+
         return result;
     }
 
@@ -48,6 +56,10 @@ export class Mutation {
         let subArr: number[] = result.slice(pos, len);
         ArrayUtils.shuffle(subArr);
         result.splice(pos, 0, ...subArr);
+
+        if (parent.length != result.length) {
+            console.log("scramble sux");
+        }
 
         return result;
     }

@@ -7,7 +7,6 @@ import { Storage } from '../model/Storage';
 export class PageProgress {
     private _vrp: VRP;
     private _nextCallback: Function;
-    private _penalties: number[] = [];
 
     constructor() {
         this.registerListeners();

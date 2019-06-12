@@ -43,7 +43,7 @@ export class ProblemLoader {
                     let node: Node = new Node();
 
                     node.position = new Vector2(+elems[1], +elems[2]);
-                    node.demand = +elems[3];
+                    node.demand = +elems[3] || 1;
                     node.timeWindowStart = +elems[4];
                     node.timeWindowEnd = +elems[5];
                     node.serviceTime = +elems[6];

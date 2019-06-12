@@ -39,11 +39,12 @@ export class Solution {
 
     private tryReroute(problem: Problem, distanceMult: number, loadMult: number) {
         let markers = [...this.vehicleMarkers];
+        let max = markers.length - 2;
 
-        for (let i = markers.length - 2; i >= 0; i--) {
-            for (let j = 1; markers[i] - j > markers[i - 1]; j++) {
+        for (let i = max; i >= 0; i--) {
+            for (let j = 1; markers[i] - j > (i == 0 ? 0 : markers[i - 1]); j++) {
                 let newMarkers = [...markers];
-                newMarkers[i] -= j;
+                newMarkers[i] = newMarkers[i] - j;
 
                 let penOld = this.evaluatePenaltyComponents(problem, markers);
                 let penNew = this.evaluatePenaltyComponents(problem, newMarkers);

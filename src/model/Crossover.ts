@@ -8,17 +8,18 @@ export class Crossover {
     ) { }
 
     public applyRandom(parent1: number[], parent2: number[]): number[] {
-        switch(RandomUtils.rangeInt(0, 1)) {
+        return this.orderOne(parent1, parent2);
+        /*switch(RandomUtils.rangeInt(0, 1)) {
             case 0: return this.orderOne(parent1, parent2);
             case 1: return this.pmx(parent1, parent2);
             case 2: return this.edgeRecombination(parent1, parent2);
-        }
+        }*/
     }
 
     public orderOne(parent1: number[], parent2: number[]): number[] {
         let result: number[] = [];
-        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent.length, this.maxSwathLen * parent.length);
-        let pos: number = RandomUtils.rangeInt(0, parent1.length - len);
+        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent1.length + 1, this.maxSwathLen * parent1.length);
+        let pos: number = RandomUtils.rangeInt(2, parent1.length - len - 2);
 
         for (let i = pos; i < pos + len; i++) {
             result[i] = parent1[i];
@@ -28,10 +29,19 @@ export class Crossover {
         for (let i = 0; i < parent2.length; i++) {
             if (result.indexOf(parent2[i]) > -1)
                 continue;
-            if (j > pos && j < pos + len)
-                j = pos + len;
             result[j] = parent2[i];
-            j++;
+            if (j >= pos - 1 && j < pos + len)
+                j = pos + len;
+            else
+                j++;
+        }
+
+        if (parent1.length != result.length) {
+            console.log(`order1 sux p1:${parent1.length} p2:${parent2.length} r:${result.length} `);
+            console.log(parent1);
+            console.log(parent2);
+            console.log(result);
+            console.log(`pos: ${pos} len: ${len}`);
         }
 
         return result;
@@ -99,7 +109,7 @@ export class Crossover {
 
     public pmx(parent1: number[], parent2: number[]): number[] {
         let result: number[] = [];
-        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent.length, this.maxSwathLen * parent.length);
+        let len: number = RandomUtils.rangeInt(this.minSwathLen * parent1.length, this.maxSwathLen * parent1.length);
         let pos: number = RandomUtils.rangeInt(0, parent1.length - len);
 
         for (let i = pos; i < pos + len; i++) {
@@ -119,6 +129,10 @@ export class Crossover {
         for (let i = 0; i < parent2.length; i++) {
             if (result[i] == null)
                 result[i] = parent2[i];
+        }
+
+        if (parent1.length != result.length) {
+            console.log("pmx sux");
         }
 
         return result;
