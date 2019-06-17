@@ -1,2 +1,3 @@
 node_modules
 dist
+/genetic-vrp-win32-x64/

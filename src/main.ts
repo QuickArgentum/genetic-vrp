@@ -30,10 +30,12 @@ export class Main {
             width: 1280,
             minHeight: 400,
             minWidth: 500,
+            webPreferences: {
+                devTools: false
+            }
         });
       
         this.mainWindow.loadFile(path.join(__dirname, "../html/index.html"));
-        this.mainWindow.webContents.openDevTools();
         this.mainWindow.on("closed", () => {
             this.mainWindow = null;
         });

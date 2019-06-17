@@ -13,7 +13,9 @@
     "Electron",
     "typescript"
   ],
-  "author": "Ortes",
+  "author": "Artem Golovnia",
+  "productName": "genetic-vrp",
+  "main": "./dist/main.js",
   "devDependencies": {
     "electron": "^2.0.18",
     "tslint": "^5.10.0",
