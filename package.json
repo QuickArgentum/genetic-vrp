@@ -26,7 +26,7 @@
     "@types/jquery": "^3.3.29",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "open-iconic": "^1.1.1",
     "popper.js": "^1.15.0"
   }
