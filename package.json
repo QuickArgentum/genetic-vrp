@@ -17,7 +17,7 @@
   "productName": "genetic-vrp",
   "main": "./dist/main.js",
   "devDependencies": {
-    "electron": "^2.0.18",
+    "electron": "^7.2.4",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   },
